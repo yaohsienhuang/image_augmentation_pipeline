@@ -1,8 +1,7 @@
 import numpy as np
 import random
-import cv2
 
-class random_brightness:
+class RandomBrightness:
     def __init__(self, delta=16):
         assert 0 <= delta <= 255, "brightness must between 0 and 255."
         self.delta = delta
@@ -12,7 +11,7 @@ class random_brightness:
         image = np.clip(image + delta, 0.0, 255.0)
         return image
     
-class random_contrast:
+class RandomContrast:
     def __init__(self, lower=0.5, upper=1.5):
         assert upper >= lower, "contrast upper must be >= lower."
         assert lower >= 0, "contrast lower must be non-negative."

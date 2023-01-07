@@ -1,6 +1,6 @@
 import imgaug.augmenters as iaa
 
-class sequence_iaa:
+class IaaSequence:
     def __init__(self,probility):
         '''
         ref : https://github.com/aleju/imgaug
@@ -17,7 +17,7 @@ class sequence_iaa:
                 #sometimes(iaa.Emboss(alpha=(0, 0.3), strength=(0, 0.5))), # emboss images
                 ],random_order=True)
         
-class img_iaa(sequence_iaa):
+class IaaAugmentation(IaaSequence):
     def __init__(self,probility):
         super().__init__(probility)
 

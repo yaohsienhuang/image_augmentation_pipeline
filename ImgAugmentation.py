@@ -1,28 +1,28 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-from augmentations.img_iaa import img_iaa
-from augmentations.img_custom import random_brightness, random_contrast
+from augmentations.IaaAugmentation import IaaAugmentation
+from augmentations.CustomAugmentation import RandomBrightness, RandomContrast
 
 class Compose:
     def __init__(self, transforms):
         self.transforms = transforms
 
     def __call__(self, image):
-        for t in self.transforms:
-            image= t(image)
+        for transform in self.transforms:
+            image= transform(image)
         return image
 
-class Train_augmentations:
+class TrainAugmentations:
     '''
     img_custom : Functions to strengthen or weaken the contrast/brightness in each image.
     img_iaa : Functions to augmentations with a given probility in the Sequence of iaa.
     '''
     def __init__(self):
         self.aug_pipeline = Compose([
-            random_brightness(20), 
-            random_contrast(0.5, 1.2),
-            img_iaa(0.8),
+            RandomBrightness(20),
+            RandomContrast(0.5, 1.2),
+            IaaAugmentation(0.8),
         ])
         
     def __call__(self, image):
@@ -37,7 +37,7 @@ if __name__=='__main__':
     img= np.array(img, dtype=np.float32)
     img_origin=img.copy()
     
-    Augmenation=train_augmentations()
+    Augmenation=TrainAugmentations()
     
     plt.figure(figsize=(20,20))
     for i in range(10):
