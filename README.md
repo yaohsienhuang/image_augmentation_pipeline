@@ -1,6 +1,5 @@
 # image_augmentation_pipeline
-* 使用 imgaug 進行實作 (img_iaa.py), 每一次在給定機率下執行擴增 , 更多 augmentation 方式可參考：
-    > https://github.com/aleju/imgaug
+* 使用 imgaug 進行實作 (img_iaa.py), 每一次在給定機率下執行擴增。 
 * 加入 custom augmentation (img_custom.py), 每一次 image 均執行此 custom 隨機調整亮度與對比。 
 
 ## 1. imgaug + custom 實作
@@ -33,6 +32,20 @@
     
     plt.show()
 ```
+### 此處可增加 imgaug function (位於 img_iaa.py)：
+```
+class sequence_iaa:
+    def __init__(self,probility):
+        sometimes = lambda aug: iaa.Sometimes(probility, aug)
+        self.sequence = iaa.Sequential([
+                sometimes(iaa.Fliplr(0.6)),
+                sometimes(iaa.Flipud(0.6)),
+                sometimes(iaa.ChannelShuffle(0.2)),
+                sometimes(iaa.GaussianBlur(sigma=0.8)),
+                ],random_order=True)
+```
+> 更多 augmentation 方式可參考：https://github.com/aleju/imgaug
+
 ### output :
 ![result](result.png)
 
